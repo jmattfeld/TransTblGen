@@ -15,15 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ssTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="status.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="list.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TransTblGen.cpp">
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ssTable.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
