@@ -21,7 +21,10 @@
     <ClInclude Include="ssTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="status.h">
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -33,6 +36,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ssTable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="transient.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

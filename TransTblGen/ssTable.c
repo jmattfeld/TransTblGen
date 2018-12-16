@@ -1,10 +1,8 @@
 // ssTable.c
 
-#include <stdbool.h>
-#include "ssTable.h"
-#include "status.h"
-#include "list.h"
+#include "main.h"
 
+#define NUM_STEPS 15
 
 Status calculateLineEqs(SSTempTable * pTable)
 {
@@ -12,7 +10,7 @@ Status calculateLineEqs(SSTempTable * pTable)
 	float diffX;
 	float diffY;
 
-	for (s = 1; s < 15; s++)
+	for (s = 1; s < NUM_STEPS; s++)
 	{
 		diffX = (float)pTable->psCnt[s] - (float)pTable->psCnt[s - 1];
 		printf("diffX: %f\n", diffX);
@@ -29,14 +27,14 @@ Status calculateLineEqs(SSTempTable * pTable)
 Status calculatePxTemp(SSTempTable * pTable, int count, float *temp)
 {
 	int s;
-	bool bHaveStep = false;
 
 	printf("calculating temp for count: %d\n", count);
 
 	// find the correct temperature step
-	for (s=1; s<15; s++)
+	for (s=1; s<NUM_STEPS; s++)
 	{
-		if ((count > pTable->psCnt[s - 1]) && (count < pTable->psCnt[s]))
+		//if ((count > pTable->psCnt[s - 1]) && (count < pTable->psCnt[s]))
+		if (count > pTable->psCnt[s])
 		{
 			// temp = m*count + b
 			printf("found step between raw counts: %d and %d\n", pTable->psCnt[s - 1], pTable->psCnt[s]);

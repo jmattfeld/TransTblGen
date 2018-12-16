@@ -1,7 +1,7 @@
 // list.c
 // this file defines the linked list routines
-#include <stdio.h>
-#include "list.h"
+
+#include "main.h"
 
 SList * append(SList * pList, void * pData)
 {

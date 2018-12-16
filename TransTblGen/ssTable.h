@@ -1,5 +1,8 @@
 // ssTable.h
 
+#ifndef SS_TABLE_H
+#define SS_TABLE_H
+
 typedef struct SSTempTable
 {
 	float	tsTemp[15];	// temp sensor values
@@ -10,3 +13,5 @@ typedef struct SSTempTable
 
 enum Status calculateLineEqs(SSTempTable * pTable);
 enum Status calculatePxTemp(SSTempTable * pTable, int count, float *temp);
+
+#endif //SS_TABLE_H
