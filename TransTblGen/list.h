@@ -9,7 +9,7 @@ typedef struct SList
 	struct SList	*next;
 } SList;
 
-SList * append(SList * pList, void * pData);
 SList * prepend(SList * pList, void * pData);
+void reverse(SList ** pList);
 
 #endif //LIST_H

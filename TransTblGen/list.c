@@ -3,16 +3,31 @@
 
 #include "main.h"
 
-SList * append(SList * pList, void * pData)
-{
-	printf("Appended to list\n");
-
-	return pList;
-}
-
 SList * prepend(SList * pList, void * pData)
 {
-	printf("Prepended to list\n");
+	SList *pNode = (struct SList*)malloc(sizeof(SList));
 
-	return pList;
+	if (NULL != pNode)
+	{
+		pNode->data = pData;
+		pNode->next = pList;
+	}
+
+	return pNode;
+}
+
+void reverse(SList ** pList)
+{
+	SList *pPrev = NULL;
+	SList *pThis = *pList;
+	SList *pNext = NULL;
+
+	while (NULL != pThis)
+	{
+		pNext = pThis->next;
+		pThis->next = pPrev;
+		pPrev = pThis;
+		pThis = pNext;
+	}
+	*pList = pPrev;
 }

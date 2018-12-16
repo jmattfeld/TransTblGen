@@ -46,5 +46,5 @@ Status calculatePxTemp(SSTempTable * pTable, int count, float *temp)
 			continue;
 	}
 	// return error if count is not in step domain
-	return Status_Error;
+	return Status_GenericError;
 }
