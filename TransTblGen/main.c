@@ -1,13 +1,116 @@
 // TransTblGen.cpp : This file contains the 'main' function. Program execution begins and ends there.
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_DEPRECATE
 
+#include <time.h>
 #include "main.h"
 
 // globals
 SSTempTable ssTbl[NUM_CHANNELS];
 
+int readLine(FILE *fp, char * tstr)
+{
+    int c;
+    int i = 0;
+    int bEof = 0;
+
+	while (1)
+    {
+		c = fgetc(fp);
+		if (c == EOF)
+        {
+			// End of file encountered
+			tstr[i] = 0;
+			bEof = 1;
+			break;
+		}
+		else if ((c == '\r') || (c == '\n'))
+        {
+			// End of line
+			tstr[i] = 0;
+			i = 0;
+			break;
+		}
+		else
+        {
+			// Build the string, dont return
+			tstr[i] = (char)c;
+			i++;
+		}
+	}
+	return(bEof);
+}
+
+Status readSteadyStateTable()
+{
+	Status status = Status_Success;
+	FILE *fp;
+	char tstr[1000];
+	char *ptstr;
+	int ret, px, s;
+
+	// open file
+	fp = fopen(SS_DATA_FILENAME, "r");
+
+	if (!fp)
+	{
+		printf("ERROR opening %s\n", SS_DATA_FILENAME);
+		return Status_GenericError;
+	}
+	printf("Opened file %s\n", SS_DATA_FILENAME);
+
+	// read the steady state data into a structure
+	// format: <psIdx> <stepIdx> <tsTemp> <psCnt>
+	//while (1)
+	for (px = 1; px < 65; px++)
+	{
+		for (s = 0; s < 15; s++)
+		{
+			ret = readLine(fp, tstr);
+
+#ifdef DEBUG
+			printf("readLine returned: %d\n", ret);
+			printf("Line: %s\n", tstr);
+#endif
+			// Have one line, load SSTempTable struct
+			// discard the first two tokens
+			strtok(tstr, ",\r\n");	// px idx
+			strtok(NULL, ",\r\n");	// step idx
+			ptstr = strtok(NULL, ",\r\n");	// tsTemp
+			sscanf(ptstr, "%f", &ssTbl[px].tsTemp[s]);
+			ptstr = strtok(NULL, ",\r\n");	// psCnt
+			sscanf(ptstr, "%d", &ssTbl[px].psCnt[s]);
+		}
+	}
+	fclose(fp);
+	printf("Closed file %s\n", SS_DATA_FILENAME);
+	return Status_Success;
+}
+
 int main()
 {
 	Status status = Status_Success;
+	int i;
+
+	// read steady state data into structure
+	if (Status_Success != (status = readSteadyStateTable()))
+	{
+		printf("ERROR parsing steady state table\n");
+		return Status_GenericError;
+	}
+	printf("Finished parsing %s\n", SS_DATA_FILENAME);
+
+	// calculate slope/intercept values from steady state data
+	for (i = 0; i < 64; i++)
+	{
+		if (Status_Success != (status = calculateLineEqs(&ssTbl[i])))
+		{
+			printf("ERROR calculating line equations for ssTbl[%d]\n", i);
+			return Status_GenericError;
+		}
+
+	}
+	printf("Finished calculating line equations\n");
 
 #pragma region List Tests
 	//SList *head = NULL;
