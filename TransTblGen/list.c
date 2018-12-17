@@ -3,6 +3,11 @@
 
 #include "transTableGen.h"
 
+void listFree(SList *current)
+{
+	// TODO call FREE on all the entries in the list
+}
+
 SList * prepend(SList * pList, void * pData)
 {
 	SList *pNode = (struct SList*)malloc(sizeof(SList));

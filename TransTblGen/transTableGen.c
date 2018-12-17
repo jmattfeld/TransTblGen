@@ -42,9 +42,66 @@ int readLine(FILE *fp, char * tstr)
 	return(bEof);
 }
 
+TempGroup * tempGroupAlloc()
+{
+	TempGroup *pStruct = (TempGroup *)malloc(sizeof(TempGroup));
+	return pStruct;
+}
+
 Status generateTransientTable()
 {
 	Status status = Status_Success;
+	FILE *fp;
+	char tstr[4000];
+	char *ptstr;
+	char *data[72];
+	int i;
+
+	// declare tempGroup lists
+	SList *TransTable[12];
+
+	// open file
+	fp = fopen(TRANS_DATA_FILENAME, "r");
+
+	if (!fp)
+	{
+		printf("ERROR opening %s\n", TRANS_DATA_FILENAME);
+		return Status_GenericError;
+	}
+	printf("Opened file %s\n", TRANS_DATA_FILENAME);
+
+	while (1)
+	{
+		if (readLine(fp, tstr))
+			break;
+
+		// tstr is pointing to one comma delimited sting of transient data
+		// organize by temp chip mapping association
+		// format of transient data (72 fields):
+		// <TST1> .. <TST8> <PSC1> .. <PSC64>
+		ptstr = strtok(tstr, ",\r\n");
+		for (i = 0; NULL != ptstr; i++)
+		{
+			data[i] = ptstr;
+			ptstr = strtok(NULL, ",\r\n");
+		}
+
+		// TST1:
+		// TST2:
+			// handle grp1 grp12 grp2
+		// TST3:
+		// TST4:
+			// handle grp3 grp34 grp4
+		// TST5:
+		// TST6:
+			// handle grp5 grp56 grp6
+		// TST7:
+		// TST8:
+			// handle grp7 grp78 grp8
+	}
+	fclose(fp);
+	printf("Closed file %s\n", TRANS_DATA_FILENAME);
+
 	return status;
 }
 
