@@ -153,15 +153,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="list.h" />
-    <ClInclude Include="main.h" />
+    <ClInclude Include="transTableGen.h" />
     <ClInclude Include="ssTable.h" />
-    <ClInclude Include="transient.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="list.c" />
-    <ClCompile Include="main.c" />
+    <ClCompile Include="transTableGen.c" />
     <ClCompile Include="ssTable.c" />
-    <ClCompile Include="transient.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

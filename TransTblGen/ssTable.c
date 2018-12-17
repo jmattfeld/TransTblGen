@@ -1,6 +1,6 @@
 // ssTable.c
 
-#include "main.h"
+#include "transTableGen.h"
 
 #define NUM_STEPS 15
 
@@ -47,6 +47,6 @@ Status calculatePxTemp(SSTempTable * pTable, int count, float *temp)
 		else
 			continue;
 	}
-	// return error if count is not in step domain
+	// return error if count is not in step dotransTableGen
 	return Status_GenericError;
 }

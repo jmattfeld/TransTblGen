@@ -1,12 +1,13 @@
-// TransTblGen.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// transTableGen.c : This file contains the 'transTableGen' function. Program execution begins and ends there.
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
 
-#include <time.h>
-#include "main.h"
+#include "transTableGen.h"
 
 // globals
 SSTempTable ssTbl[NUM_CHANNELS];
+
+// function definitions
 
 int readLine(FILE *fp, char * tstr)
 {
@@ -39,6 +40,12 @@ int readLine(FILE *fp, char * tstr)
 		}
 	}
 	return(bEof);
+}
+
+Status generateTransientTable()
+{
+	Status status = Status_Success;
+	return status;
 }
 
 Status readSteadyStateTable()

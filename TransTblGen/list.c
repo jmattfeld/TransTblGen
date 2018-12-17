@@ -1,7 +1,7 @@
 // list.c
 // this file defines the linked list routines
 
-#include "main.h"
+#include "transTableGen.h"
 
 SList * prepend(SList * pList, void * pData)
 {
